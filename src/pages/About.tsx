@@ -1,63 +1,66 @@
-import { Github, Mail, MapPin, Coffee, Layers, PenLine } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 import { siteConfig } from '../config'
 
-const skills = ['React', 'TypeScript', 'JavaScript', 'CSS / Tailwind', 'Node.js', 'Vite', 'Git', '性能优化']
-const timeline = [
-  { year: '2026', text: '开始认真记录技术笔记，把这个博客搭建起来。' },
-  { year: '2025', text: '深入前端工程化，关注可维护性与开发体验。' },
-  { year: '2024', text: '从零学习前端，写下第一行生产环境的代码。' },
+const skills = ['React', 'TypeScript', 'JavaScript', 'Node.js', 'Python', 'Rust', 'Vite', 'LLM Applications']
+const log = [
+  { year: '2026', text: '开始以 Field Notes 的形式持续输出，把博客改造成长期技术档案。' },
+  { year: '2025', text: '深入 AI 应用与本地模型部署，写下一系列实验记录。' },
+  { year: '2024', text: '从零系统学习前端，写下第一批真正上线的技术文章。' },
 ]
 
 export default function About() {
   return (
     <section className="container page-section about-page">
-      <div className="page-heading">
-        <span className="section-kicker">About Me</span>
-        <h1>关于我</h1>
-        <p>你好，很高兴在这里遇见你。</p>
-      </div>
+      <header className="page-header">
+        <span className="eyebrow mono">ABOUT / STONE</span>
+        <h1>关于</h1>
+        <p>写作者、开发者，长期主义者。</p>
+      </header>
 
       <div className="about-grid">
-        <div className="about-card">
-          <div className="avatar">{siteConfig.author.slice(0, 1).toUpperCase()}</div>
-          <h2>{siteConfig.author}</h2>
-          <p className="about-role">前端开发者 / 技术写作者</p>
-          <div className="about-info">
-            <span><MapPin size={15} /> {siteConfig.location}</span>
-            <span><Coffee size={15} /> 咖啡驱动开发</span>
-          </div>
-          <div className="about-links">
-            <a href={siteConfig.github} target="_blank" rel="noreferrer"><Github size={16} /> GitHub</a>
-            <a href={`mailto:${siteConfig.email}`}><Mail size={16} /> 发邮件</a>
+        <div className="about-lead">
+          <p className="about-intro">{siteConfig.intro}</p>
+          <p>
+            这个站点不是简历，也不打算做成流量产品。它更像一间持续整理的工作室：文章用来把一个问题讲透，笔记留给零散但有用的结论，项目则记录那些真正动手做过的东西。
+          </p>
+          <p>
+            我相信好的技术写作应该把复杂的问题讲清楚，也相信长期稳定的积累比短暂的高强度更重要。如果你在这里找到一点有用的东西，那这篇文章就已经完成了它的任务。
+          </p>
+          <div className="about-contact">
+            <a href={siteConfig.github} target="_blank" rel="noreferrer">GitHub <ArrowUpRight size={14} /></a>
+            <a href={`mailto:${siteConfig.email}`}>Email <ArrowUpRight size={14} /></a>
           </div>
         </div>
 
-        <div className="about-main">
+        <aside className="about-aside">
           <div className="about-block">
-            <h3><PenLine size={18} /> 自我介绍</h3>
-            <p>{siteConfig.bio}</p>
-            <p>我相信好的技术文章应该把复杂的问题讲清楚，所以这里的内容会尽量保持简单、直接、可复用。如果某篇文章帮到了你，那就是它最大的价值。</p>
+            <h2 className="mono">Profile</h2>
+            <dl>
+              <div><dt>Name</dt><dd>{siteConfig.author}</dd></div>
+              <div><dt>Role</dt><dd>{siteConfig.role}</dd></div>
+              <div><dt>Based in</dt><dd>{siteConfig.location}</dd></div>
+            </dl>
           </div>
 
           <div className="about-block">
-            <h3><Layers size={18} /> 技术栈与兴趣</h3>
+            <h2 className="mono">Stack &amp; Interests</h2>
             <div className="skill-list">
-              {skills.map((skill) => <span key={skill}>{skill}</span>)}
+              {skills.map((skill) => <span key={skill} className="mono">{skill}</span>)}
             </div>
           </div>
 
           <div className="about-block">
-            <h3><Coffee size={18} /> 一些小经历</h3>
+            <h2 className="mono">Log</h2>
             <div className="timeline">
-              {timeline.map((item) => (
+              {log.map((item) => (
                 <div className="timeline-item" key={item.year}>
-                  <span className="timeline-year">{item.year}</span>
+                  <span className="mono">{item.year}</span>
                   <p>{item.text}</p>
                 </div>
               ))}
             </div>
           </div>
-        </div>
+        </aside>
       </div>
     </section>
   )

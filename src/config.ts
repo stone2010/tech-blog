@@ -1,11 +1,17 @@
-/** 博客的基础信息：改这里就能换成你自己的站点 */
+/** 站点基础信息：改这里就能换成你自己的品牌 */
 export const siteConfig = {
-  name: '技术笔记',
-  englishName: 'FIELD NOTES',
-  description: '记录前端开发、工具使用与思考沉淀，保持好奇，持续输出。',
+  name: 'Stone',
+  journal: 'Field Notes',
+  description: '关于 AI、编程、硬件与开源实践的技术记录。写给未来的自己，也写给偶然路过的你。',
+  intro: '一名持续学习的软件开发者。这里收录我的技术文章、实验记录与项目笔记，用来沉淀思考，也用来对抗遗忘。',
   author: 'Stone',
-  bio: '一名热爱前端的开发者，喜欢把复杂的问题讲简单。这里存放我的学习笔记、实践总结和一些零散的想法。',
+  role: 'Software Engineer / Technical Writer',
   github: 'https://github.com/stone2010',
   email: 'hello@example.com',
-  location: '中国',
+  location: 'China',
+  now: [
+    { label: 'Building', value: 'AI-native developer tools' },
+    { label: 'Reading', value: 'Designing Data-Intensive Applications' },
+    { label: 'Learning', value: 'Systems programming & compilers' },
+  ],
 } as const
