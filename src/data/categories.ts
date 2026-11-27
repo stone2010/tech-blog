@@ -1,4 +1,4 @@
-import type { Category } from '../types'
+import type { Category, Post } from '../types'
 import { notes } from './notes'
 import { posts } from './posts'
 
@@ -11,8 +11,8 @@ export const categories: { key: Category; description: string }[] = [
   { key: 'Thoughts', description: '关于学习、写作和长期主义的想法。' },
 ]
 
-export function categoryCount(key: Category) {
-  const articleCount = posts.filter((post) => post.category === key).length
+export function categoryCount(key: Category, source: Post[] = posts) {
+  const articleCount = source.filter((post) => post.category === key).length
   const noteCount = notes.filter((note) => note.category === key).length
   return articleCount + noteCount
 }

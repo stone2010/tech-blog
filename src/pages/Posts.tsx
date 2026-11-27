@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Search, X } from 'lucide-react'
 import ArticleRow from '../components/ArticleRow'
 import { categories, isCategory } from '../data/categories'
-import { posts } from '../data/posts'
+import { usePosts } from '../data/store'
 import type { Category } from '../types'
 
 interface PostsProps {
@@ -11,6 +11,7 @@ interface PostsProps {
 }
 
 export default function Posts({ initialCategory, initialTag }: PostsProps) {
+  const posts = usePosts()
   const [query, setQuery] = useState('')
   const [category, setCategory] = useState<Category | null>(
     initialCategory && isCategory(initialCategory) ? initialCategory : null,

@@ -16,6 +16,7 @@ const navItems = [
   { label: 'Articles', href: '#/posts', key: 'articles' },
   { label: 'Projects', href: '#/projects', key: 'projects' },
   { label: 'Notes', href: '#/notes', key: 'notes' },
+  { label: 'Write', href: '#/write', key: 'write' },
   { label: 'About', href: '#/about', key: 'about' },
 ]
 
@@ -24,6 +25,7 @@ function activeKey(route: Route) {
     case 'home': return 'home'
     case 'projects': return 'projects'
     case 'notes': return 'notes'
+    case 'write': return 'write'
     case 'about': return 'about'
     default: return 'articles'
   }

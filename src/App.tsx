@@ -9,15 +9,19 @@ import PostDetail from './pages/PostDetail'
 import Categories from './pages/Categories'
 import Projects from './pages/Projects'
 import Notes from './pages/Notes'
+import Editor from './pages/Editor'
 import About from './pages/About'
 import type { Route, Theme } from './types'
 
 function parseRoute(): Route {
   const raw = window.location.hash.replace(/^#/, '')
-  const path = raw.startsWith('/') ? raw.slice(1) : raw
+  const [pathPart, queryPart = ''] = raw.replace(/^\//, '').split('?')
+  const path = pathPart
   if (!path) return { name: 'home' }
 
   const [first, second] = path.split('/')
+  const params = new URLSearchParams(queryPart)
+  if (first === 'write') return { name: 'write', slug: params.get('slug') ?? undefined }
   if (first === 'posts') return { name: 'posts' }
   if (first === 'post' && second) return { name: 'post', slug: decodeURIComponent(second) }
   if (first === 'categories') return { name: 'categories' }
@@ -92,6 +96,8 @@ export default function App() {
         return <Projects />
       case 'notes':
         return <Notes />
+      case 'write':
+        return <Editor key={route.slug ?? 'new'} slug={route.slug} />
       case 'about':
         return <About />
       default:

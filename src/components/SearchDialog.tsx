@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Search, CornerDownLeft, ArrowUpRight } from 'lucide-react'
-import { posts } from '../data/posts'
+import { usePosts } from '../data/store'
 import { notes } from '../data/notes'
 import { projects } from '../data/projects'
 
@@ -12,31 +12,32 @@ interface SearchItem {
   meta: string
 }
 
-const index: SearchItem[] = [
-  ...posts.map((post) => ({
-    kind: 'Article' as const,
-    title: post.title,
-    description: post.excerpt,
-    href: `#/post/${post.slug}`,
-    meta: `${post.category} · ${post.date}`,
-  })),
-  ...notes.map((note) => ({
-    kind: 'Note' as const,
-    title: note.title,
-    description: note.content,
-    href: '#/notes',
-    meta: `${note.id} · ${note.category}`,
-  })),
-  ...projects.map((project) => ({
-    kind: 'Project' as const,
-    title: project.name,
-    description: project.description,
-    href: '#/projects',
-    meta: `${project.year} · ${project.status}`,
-  })),
-]
-
 export default function SearchDialog({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const posts = usePosts()
+  const index = useMemo<SearchItem[]>(() => [
+    ...posts.map((post) => ({
+      kind: 'Article' as const,
+      title: post.title,
+      description: post.excerpt,
+      href: `#/post/${post.slug}`,
+      meta: `${post.category} · ${post.date}`,
+    })),
+    ...notes.map((note) => ({
+      kind: 'Note' as const,
+      title: note.title,
+      description: note.content,
+      href: '#/notes',
+      meta: `${note.id} · ${note.category}`,
+    })),
+    ...projects.map((project) => ({
+      kind: 'Project' as const,
+      title: project.name,
+      description: project.description,
+      href: '#/projects',
+      meta: `${project.year} · ${project.status}`,
+    })),
+  ], [posts])
+
   const [query, setQuery] = useState('')
   const [active, setActive] = useState(0)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -62,7 +63,7 @@ export default function SearchDialog({ open, onClose }: { open: boolean; onClose
     return index
       .filter((item) => `${item.title} ${item.description} ${item.meta}`.toLowerCase().includes(keyword))
       .slice(0, 10)
-  }, [query])
+  }, [query, index])
 
   if (!open) return null
 

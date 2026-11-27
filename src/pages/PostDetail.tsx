@@ -10,8 +10,9 @@ import python from 'highlight.js/lib/languages/python'
 import go from 'highlight.js/lib/languages/go'
 import xml from 'highlight.js/lib/languages/xml'
 import markdown from 'highlight.js/lib/languages/markdown'
-import { ArrowLeft, ArrowRight } from 'lucide-react'
-import { formatDate, getPost, parseHeadings, posts, readingMinutes } from '../data/posts'
+import { ArrowLeft, ArrowRight, Pencil } from 'lucide-react'
+import { formatDate, parseHeadings, readingMinutes } from '../data/posts'
+import { getMergedPost, usePosts } from '../data/store'
 
 hljs.registerLanguage('typescript', typescript)
 hljs.registerLanguage('javascript', javascript)
@@ -28,7 +29,8 @@ hljs.registerAliases(['html'], { languageName: 'xml' })
 hljs.registerAliases(['sh', 'shell'], { languageName: 'bash' })
 
 export default function PostDetail({ slug }: { slug: string }) {
-  const post = getPost(slug)
+  const posts = usePosts()
+  const post = getMergedPost(slug)
   const [progress, setProgress] = useState(0)
   const [activeHeading, setActiveHeading] = useState(0)
 
@@ -135,6 +137,7 @@ export default function PostDetail({ slug }: { slug: string }) {
               <span className="meta-category">{post.category}</span>
               <span className="meta-dot" />
               <span>NOTE-{String(index + 1).padStart(3, '0')}</span>
+              {post.local && <span className="local-badge">LOCAL DRAFT</span>}
             </div>
             <h1>{post.title}</h1>
             <p className="article-lede">{post.excerpt}</p>
@@ -146,6 +149,9 @@ export default function PostDetail({ slug }: { slug: string }) {
             <div className="article-tags">
               {post.tags.map((tag) => <a key={tag} href={`#/tag/${encodeURIComponent(tag)}`}>{tag}</a>)}
             </div>
+            <a className="article-edit mono" href={`#/write?slug=${encodeURIComponent(post.slug)}`}>
+              <Pencil size={13} /> Edit this article
+            </a>
           </header>
 
           <details className="toc-mobile">

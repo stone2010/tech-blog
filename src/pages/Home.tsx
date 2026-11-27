@@ -3,10 +3,12 @@ import ArticleRow from '../components/ArticleRow'
 import { siteConfig } from '../config'
 import { categories } from '../data/categories'
 import { notes } from '../data/notes'
-import { posts, readingMinutes, shortDate } from '../data/posts'
+import { readingMinutes, shortDate } from '../data/posts'
 import { projects } from '../data/projects'
+import { usePosts } from '../data/store'
 
 export default function Home() {
+  const posts = usePosts()
   const featured = posts.find((post) => post.featured) ?? posts[0]
   const latest = posts.filter((post) => post.slug !== featured.slug).slice(0, 5)
 
@@ -15,8 +17,7 @@ export default function Home() {
       <section className="home-intro container">
         <div className="intro-main">
           <span className="eyebrow">STONE / FIELD NOTES</span>
-          <h1>技术记录，<br />与长期思考。</h1>
-          <p className="intro-lede">{siteConfig.description}</p>
+          <h1>Field notes on<br /><span className="intro-accent">building things.</span></h1>
           <div className="intro-actions">
             <a className="button button-primary" href="#/posts">浏览文章 <ArrowRight size={15} /></a>
             <a className="button button-text" href="#/projects">查看项目 <ArrowUpRight size={15} /></a>

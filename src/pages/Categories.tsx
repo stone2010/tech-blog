@@ -1,7 +1,9 @@
 import { ArrowRight } from 'lucide-react'
 import { categories, categoryCount } from '../data/categories'
+import { usePosts } from '../data/store'
 
 export default function Categories() {
+  const posts = usePosts()
   return (
     <section className="container page-section">
       <header className="page-header">
@@ -18,7 +20,7 @@ export default function Categories() {
               <h2>{category.key}</h2>
               <p>{category.description}</p>
             </div>
-            <span className="mono category-count">{String(categoryCount(category.key)).padStart(2, '0')} entries</span>
+            <span className="mono category-count">{String(categoryCount(category.key, posts)).padStart(2, '0')} entries</span>
             <ArrowRight size={17} />
           </a>
         ))}

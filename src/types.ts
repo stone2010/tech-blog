@@ -17,6 +17,8 @@ export interface Post {
   excerpt: string
   content: string
   featured?: boolean
+  /** 由网页编辑器创建或覆盖的文章，保存在浏览器本地 */
+  local?: boolean
 }
 
 export interface Project {
@@ -48,4 +50,5 @@ export type Route =
   | { name: 'tag'; tag: string }
   | { name: 'projects' }
   | { name: 'notes' }
+  | { name: 'write'; slug?: string }
   | { name: 'about' }
