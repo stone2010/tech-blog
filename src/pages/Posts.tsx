@@ -23,7 +23,7 @@ export default function Posts({ initialTag }: { initialTag?: string }) {
   return (
     <section className="container page-section">
       <div className="page-heading">
-        <span className="section-kicker">ALL ARTICLES</span>
+        <span className="section-kicker">All Articles</span>
         <h1>文章列表</h1>
         <p>共收录 {posts.length} 篇文章，记录学习路上的点点滴滴。</p>
       </div>

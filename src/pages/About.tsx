@@ -12,7 +12,7 @@ export default function About() {
   return (
     <section className="container page-section about-page">
       <div className="page-heading">
-        <span className="section-kicker">ABOUT ME</span>
+        <span className="section-kicker">About Me</span>
         <h1>关于我</h1>
         <p>你好，很高兴在这里遇见你。</p>
       </div>

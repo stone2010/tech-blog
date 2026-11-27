@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Code2, Sun, Moon, Github, Menu, X } from 'lucide-react'
+import { Sun, Moon, Github, Menu, X } from 'lucide-react'
 import type { Route, Theme } from '../types'
 import { siteConfig } from '../config'
 
@@ -23,7 +23,7 @@ export default function Header({ theme, onToggleTheme, route }: HeaderProps) {
     <header className="site-header">
       <div className="container header-inner">
         <a className="brand" href="#/" onClick={() => setMenuOpen(false)}>
-          <span className="brand-mark"><Code2 size={20} strokeWidth={2.4} /></span>
+          <span className="brand-mark" aria-hidden="true">✳</span>
           <span className="brand-text">
             {siteConfig.name}
             <small>{siteConfig.englishName}</small>

@@ -24,7 +24,7 @@ export default function App() {
   const [route, setRoute] = useState<Route>(parseRoute)
   const [theme, setTheme] = useState<Theme>(() => {
     const saved = localStorage.getItem('tech-blog-theme')
-    return saved === 'light' || saved === 'dark' ? saved : 'dark'
+    return saved === 'light' || saved === 'dark' ? saved : 'light'
   })
 
   useEffect(() => {
@@ -39,7 +39,7 @@ export default function App() {
   useEffect(() => {
     document.documentElement.dataset.theme = theme
     localStorage.setItem('tech-blog-theme', theme)
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#0b0d14' : '#f7f8fc')
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#191918' : '#f7f6f1')
   }, [theme])
 
   const toggleTheme = () => setTheme((current) => (current === 'dark' ? 'light' : 'dark'))

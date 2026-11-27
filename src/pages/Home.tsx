@@ -1,4 +1,4 @@
-import { ArrowRight, BookOpen, Tags, CalendarCheck, Sparkles } from 'lucide-react'
+import { ArrowRight, BookOpen, Tags, CalendarCheck } from 'lucide-react'
 import Hero from '../components/Hero'
 import PostCard from '../components/PostCard'
 import { allTags, formatDate, posts, readingMinutes } from '../data/posts'
@@ -22,14 +22,13 @@ export default function Home() {
       <section className="container section">
         <div className="section-heading">
           <div>
-            <span className="section-kicker"><Sparkles size={14} /> EDITOR'S PICK</span>
+            <span className="section-kicker">Editor's Pick</span>
             <h2>精选文章</h2>
           </div>
           <a className="section-link" href="#/posts">查看全部 <ArrowRight size={16} /></a>
         </div>
 
         <a className="featured-card" href={`#/post/${featured.slug}`}>
-          <div className="featured-glow" />
           <div className="featured-content">
             <span className="featured-label">置顶推荐</span>
             <h3>{featured.title}</h3>
@@ -41,18 +40,13 @@ export default function Home() {
             </div>
             <span className="featured-cta">阅读全文 <ArrowRight size={16} /></span>
           </div>
-          <div className="featured-decoration" aria-hidden="true">
-            <div className="deco-ring ring-one" />
-            <div className="deco-ring ring-two" />
-            <span className="deco-symbol">&lt;/&gt;</span>
-          </div>
         </a>
       </section>
 
       <section className="container section">
         <div className="section-heading">
           <div>
-            <span className="section-kicker">LATEST POSTS</span>
+            <span className="section-kicker">Latest Posts</span>
             <h2>最新文章</h2>
           </div>
           <a className="section-link" href="#/posts">全部文章 <ArrowRight size={16} /></a>
@@ -65,7 +59,7 @@ export default function Home() {
       <section className="container">
         <div className="cta-banner">
           <div>
-            <span className="section-kicker">LET'S CONNECT</span>
+            <span className="section-kicker">Let's connect</span>
             <h2>一起交流，一起成长</h2>
             <p>如果你对这些内容感兴趣，欢迎通过 GitHub 或邮件联系我。</p>
           </div>
