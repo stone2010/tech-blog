@@ -16,8 +16,8 @@ const navItems = [
   { label: 'Articles', href: '#/posts', key: 'articles' },
   { label: 'Projects', href: '#/projects', key: 'projects' },
   { label: 'Notes', href: '#/notes', key: 'notes' },
-  { label: 'Write', href: '#/write', key: 'write' },
   { label: 'About', href: '#/about', key: 'about' },
+  { label: '✏ Write', href: '#/write', key: 'write', cta: true },
 ]
 
 function activeKey(route: Route) {
@@ -29,6 +29,13 @@ function activeKey(route: Route) {
     case 'about': return 'about'
     default: return 'articles'
   }
+}
+
+interface NavItem {
+  label: string
+  href: string
+  key: string
+  cta?: boolean
 }
 
 export default function Header({ theme, onToggleTheme, onOpenSearch, route }: HeaderProps) {
@@ -48,11 +55,11 @@ export default function Header({ theme, onToggleTheme, onOpenSearch, route }: He
         </a>
 
         <nav className={`nav ${menuOpen ? 'is-open' : ''}`} aria-label="主导航">
-          {navItems.map((item) => (
+          {(navItems as NavItem[]).map((item) => (
             <a
               key={item.key}
               href={item.href}
-              className={active === item.key ? 'active' : ''}
+              className={[active === item.key ? 'active' : '', item.cta ? 'nav-write' : ''].filter(Boolean).join(' ')}
               onClick={() => setMenuOpen(false)}
             >
               {item.label}

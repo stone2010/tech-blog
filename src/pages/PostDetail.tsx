@@ -10,7 +10,7 @@ import python from 'highlight.js/lib/languages/python'
 import go from 'highlight.js/lib/languages/go'
 import xml from 'highlight.js/lib/languages/xml'
 import markdown from 'highlight.js/lib/languages/markdown'
-import { ArrowLeft, ArrowRight, Pencil } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Pencil, Share2 } from 'lucide-react'
 import { formatDate, parseHeadings, readingMinutes } from '../data/posts'
 import { getMergedPost, usePosts } from '../data/store'
 
@@ -33,9 +33,25 @@ export default function PostDetail({ slug }: { slug: string }) {
   const post = getMergedPost(slug)
   const [progress, setProgress] = useState(0)
   const [activeHeading, setActiveHeading] = useState(0)
+  const [copied, setCopied] = useState(false)
 
   const toc = useMemo(() => (post ? parseHeadings(post.content) : []), [post])
   const html = useMemo(() => (post ? (marked.parse(post.content) as string) : ''), [post])
+
+  const handleShare = async () => {
+    const url = window.location.href
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: post?.title, url })
+        return
+      } catch { /* user cancelled */ }
+    }
+    try {
+      await navigator.clipboard.writeText(url)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch { /* ignore */ }
+  }
 
   // 渲染后处理：标题 id、代码高亮、复制按钮
   useEffect(() => {
@@ -149,9 +165,18 @@ export default function PostDetail({ slug }: { slug: string }) {
             <div className="article-tags">
               {post.tags.map((tag) => <a key={tag} href={`#/tag/${encodeURIComponent(tag)}`}>{tag}</a>)}
             </div>
-            <a className="article-edit mono" href={`#/write?slug=${encodeURIComponent(post.slug)}`}>
-              <Pencil size={13} /> Edit this article
-            </a>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginTop: 18 }}>
+              <a className="article-edit mono" href={`#/write?slug=${encodeURIComponent(post.slug)}`}>
+                <Pencil size={13} /> Edit this article
+              </a>
+              <button
+                className="article-edit mono"
+                onClick={handleShare}
+                style={{ background: 'none', border: 0, padding: 0, cursor: 'pointer' }}
+              >
+                <Share2 size={13} /> {copied ? '已复制链接' : '分享'}
+              </button>
+            </div>
           </header>
 
           <details className="toc-mobile">
